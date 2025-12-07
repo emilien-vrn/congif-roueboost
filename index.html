@@ -1,0 +1,4552 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadeo - Configuration Campagne Roue Boost v6</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #d1c8f8;
+      --violet-light: #ece8fd;
+      --violet-dark: #b8adef;
+      --yellow: #f7e7a6;
+      --yellow-light: #fdf8e3;
+      --coral: #e68d8b;
+      --coral-light: #f5d0cf;
+      --black: #1a1a1a;
+      --white: #ffffff;
+      --gray-light: #f7f7f7;
+      --gray: #e5e5e5;
+      --gray-medium: #999;
+      --gray-dark: #666;
+      --green: #4CAF50;
+      --green-light: #e8f5e9;
+      --border: 3px solid var(--black);
+      --border-thin: 2px solid var(--black);
+      --shadow: 4px 4px 0 var(--black);
+      --shadow-sm: 2px 2px 0 var(--black);
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--gray-light);
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 200px;
+      background: var(--black);
+      color: var(--white);
+      padding: 20px 0;
+      flex-shrink: 0;
+      position: fixed;
+      height: 100vh;
+      left: 0;
+      top: 0;
+      z-index: 100;
+    }
+
+    .sidebar-logo {
+      font-size: 24px;
+      font-weight: 800;
+      padding: 0 20px 30px;
+      letter-spacing: -0.5px;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+    }
+
+    .sidebar-nav li {
+      padding: 12px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      transition: all 0.15s;
+      font-size: 14px;
+    }
+
+    .sidebar-nav li:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .sidebar-nav li.active {
+      background: var(--violet);
+      color: var(--black);
+    }
+
+    .sidebar-nav li .icon {
+      width: 20px;
+      text-align: center;
+    }
+
+    .badge {
+      font-size: 9px;
+      background: var(--coral);
+      color: var(--white);
+      padding: 2px 6px;
+      border-radius: 10px;
+      margin-left: auto;
+    }
+
+    /* Main Content */
+    .main {
+      margin-left: 200px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Top Header */
+    .top-header {
+      background: var(--white);
+      border-bottom: var(--border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .back-btn {
+      width: 36px;
+      height: 36px;
+      border: var(--border-thin);
+      border-radius: 8px;
+      background: var(--white);
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .back-btn:hover {
+      background: var(--gray-light);
+    }
+
+    .campaign-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .campaign-name {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .campaign-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--yellow-light);
+      border: 2px solid var(--yellow);
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--coral);
+      border-radius: 50%;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .account-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gray-medium);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: all 0.15s;
+      border: 1px solid transparent;
+    }
+
+    .account-btn:hover {
+      background: var(--gray-light);
+      color: var(--gray-dark);
+      border-color: var(--gray);
+    }
+
+    .video-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gray-dark);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: all 0.15s;
+    }
+
+    .video-link:hover {
+      background: var(--violet-light);
+      color: var(--black);
+    }
+
+    .video-link .play-icon {
+      width: 20px;
+      height: 20px;
+      background: var(--violet);
+      border: 1.5px solid var(--black);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+    }
+
+    .settings-btn {
+      width: 36px;
+      height: 36px;
+      border: var(--border-thin);
+      border-radius: 8px;
+      background: var(--white);
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .settings-btn:hover {
+      background: var(--gray-light);
+    }
+
+    /* Content Layout */
+    .content-wrapper {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Left Panel - Steps */
+    .steps-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 680px;
+      border-right: var(--border);
+      background: var(--white);
+    }
+
+    /* Progress Header */
+    .progress-header {
+      padding: 16px 24px;
+      border-bottom: 2px solid var(--gray);
+      background: var(--gray-light);
+    }
+
+    .progress-steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .progress-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 6px 0;
+    }
+
+    .step-number {
+      width: 28px;
+      height: 28px;
+      border: var(--border-thin);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--white);
+      transition: all 0.2s;
+    }
+
+    .progress-step.active .step-number {
+      background: var(--violet);
+      transform: scale(1.1);
+    }
+
+    .progress-step.completed .step-number {
+      background: var(--green);
+      color: var(--white);
+      border-color: var(--green);
+    }
+
+    .step-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-dark);
+      display: none;
+    }
+
+    .progress-step.active .step-label {
+      display: block;
+      color: var(--black);
+    }
+
+    .step-connector {
+      width: 24px;
+      height: 2px;
+      background: var(--gray);
+      margin: 0 4px;
+    }
+
+    .progress-step.completed + .step-connector,
+    .step-connector.done {
+      background: var(--green);
+    }
+
+    /* Step Content */
+    .step-content {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+    }
+
+    .step-header {
+      margin-bottom: 20px;
+    }
+
+    .step-header-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .gifts-counter {
+      padding: 4px 10px;
+      background: var(--violet-light);
+      border: 2px solid var(--violet);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .step-title {
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .step-subtitle {
+      font-size: 13px;
+      color: var(--gray-dark);
+    }
+
+    /* Common form elements */
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-dark);
+      margin-bottom: 10px;
+      margin-top: 20px;
+    }
+
+    .section-label:first-of-type {
+      margin-top: 0;
+    }
+
+    /* ============================================
+       STEP 1 & 2 - Keep same as before
+       ============================================ */
+
+    .objectives-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .objective-item {
+      background: var(--white);
+      border: var(--border-thin);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: all 0.15s;
+    }
+
+    .objective-item:hover {
+      box-shadow: var(--shadow-sm);
+    }
+
+    .objective-item.google {
+      border-color: var(--black);
+      background: var(--violet-light);
+    }
+
+    .objective-item.instagram {
+      border-color: var(--black);
+      background: var(--coral-light);
+    }
+
+    .objective-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+    }
+
+    .objective-drag {
+      color: var(--gray-medium);
+      cursor: grab;
+      font-size: 14px;
+    }
+
+    .objective-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .objective-card-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .objective-visit-badge {
+      background: var(--black);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 10px;
+    }
+
+    .objective-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--white);
+      border: var(--border-thin);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .objective-info {
+      flex: 1;
+    }
+
+    .objective-info p {
+      font-size: 12px;
+      color: var(--gray-dark);
+    }
+
+    .objective-action-highlight {
+      background: var(--yellow);
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-weight: 600;
+      color: var(--black);
+      font-size: 11px;
+    }
+
+    .objective-actions {
+      display: flex;
+      gap: 3px;
+    }
+
+    .obj-action-btn {
+      width: 28px;
+      height: 28px;
+      border: 1.5px solid var(--gray);
+      border-radius: 5px;
+      background: var(--white);
+      cursor: pointer;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .obj-action-btn:hover {
+      border-color: var(--black);
+    }
+
+    .obj-action-btn.delete:hover {
+      background: var(--coral-light);
+    }
+
+    .objective-config {
+      padding: 10px 14px;
+      border-top: 1.5px dashed var(--gray);
+      background: rgba(255,255,255,0.5);
+    }
+
+    .config-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .config-row label {
+      font-weight: 600;
+      font-size: 11px;
+      color: var(--gray-dark);
+    }
+
+    .config-link {
+      flex: 1;
+      padding: 8px 10px;
+      border: var(--border-thin);
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 12px;
+      background: var(--white);
+    }
+
+    .test-btn {
+      padding: 8px 10px;
+      border: var(--border-thin);
+      border-radius: 6px;
+      background: var(--white);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .add-objective-section {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 2px solid var(--gray);
+    }
+
+    .objectives-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .objective-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 8px;
+      background: var(--white);
+      border: 2px solid var(--gray);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .objective-card:hover {
+      border-color: var(--black);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .objective-card.disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .objective-card-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--gray-light);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .objective-card-name {
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* Distribution Bar */
+    .distribution-bar-container {
+      background: var(--white);
+      border: var(--border-thin);
+      border-radius: 10px;
+      padding: 14px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 16px;
+    }
+
+    .distribution-bar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .distribution-bar-header h4 {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .distribution-total span {
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .distribution-bar {
+      height: 32px;
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      border: var(--border-thin);
+    }
+
+    .distribution-segment {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .distribution-hint {
+      font-size: 12px;
+      color: var(--gray-dark);
+      margin-top: 10px;
+      padding: 10px 12px;
+      background: var(--green-light);
+      border-radius: 8px;
+    }
+
+    .distribution-hint strong {
+      color: var(--black);
+    }
+
+    /* Gifts Empty State */
+    .gifts-empty {
+      text-align: center;
+      padding: 40px 20px;
+      background: var(--gray-light);
+      border: 2px dashed var(--gray);
+      border-radius: 12px;
+    }
+
+    .gifts-empty-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+
+    .gifts-empty h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .gifts-empty p {
+      font-size: 13px;
+      color: var(--gray-dark);
+      margin-bottom: 20px;
+    }
+
+    .gifts-empty .btn {
+      display: inline-flex;
+    }
+
+    .gifts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .gift-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      background: var(--white);
+      border: var(--border-thin);
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .gift-item:hover {
+      box-shadow: var(--shadow-sm);
+    }
+
+    .gift-item.losing {
+      background: var(--gray-light);
+      border-style: dashed;
+    }
+
+    .gift-drag {
+      color: var(--gray-medium);
+      font-size: 12px;
+    }
+
+    .gift-color-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      border: 2px solid var(--black);
+    }
+
+    .gift-emoji {
+      font-size: 20px;
+      width: 28px;
+      text-align: center;
+    }
+
+    .gift-details {
+      flex: 1;
+    }
+
+    .gift-name {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .gift-meta {
+      font-size: 11px;
+      color: var(--gray-dark);
+    }
+
+    .gift-actions {
+      display: flex;
+      gap: 4px;
+    }
+
+    .gift-action-btn {
+      width: 28px;
+      height: 28px;
+      border: 1.5px solid var(--gray);
+      border-radius: 5px;
+      background: var(--white);
+      cursor: pointer;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gift-action-btn:hover {
+      border-color: var(--black);
+    }
+
+    .gift-action-btn.delete:hover {
+      background: var(--coral-light);
+    }
+
+    .add-gift-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 12px;
+      border: 2px dashed var(--gray);
+      border-radius: 8px;
+      background: transparent;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-dark);
+      cursor: pointer;
+    }
+
+    .add-gift-btn:hover {
+      border-color: var(--black);
+      color: var(--black);
+    }
+
+    /* Losing case toggle - fusionné */
+    .losing-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--gray-light);
+      border: 2px dashed var(--gray);
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .losing-toggle-row.hidden {
+      opacity: 0.4;
+    }
+
+    .losing-toggle-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .losing-toggle-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .losing-toggle-options {
+      display: flex;
+      gap: 6px;
+    }
+
+    .losing-radio {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      background: var(--white);
+      border: 2px solid var(--gray);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+
+    .losing-radio:has(input:checked) {
+      border-color: var(--black);
+      background: var(--violet-light);
+    }
+
+    .losing-radio input {
+      display: none;
+    }
+
+    /* ============================================
+       STEP 3: PERSONNALISATION PAGE DE JEU
+       ============================================ */
+
+    .theme-option {
+      border: 2px solid var(--gray);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .theme-option:hover {
+      border-color: var(--black);
+    }
+
+    .theme-option.selected {
+      border-color: var(--black);
+      background: var(--violet-light);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .theme-option-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .theme-radio {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--black);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .theme-option.selected .theme-radio::after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      background: var(--black);
+      border-radius: 50%;
+    }
+
+    .theme-option-info h4 {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .theme-option-info p {
+      font-size: 12px;
+      color: var(--gray-dark);
+    }
+
+    /* Themes carousel */
+    .themes-carousel {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 4px 0 8px;
+      margin: -4px;
+    }
+
+    .themes-carousel::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .themes-carousel::-webkit-scrollbar-track {
+      background: var(--gray-light);
+      border-radius: 3px;
+    }
+
+    .themes-carousel::-webkit-scrollbar-thumb {
+      background: var(--gray);
+      border-radius: 3px;
+    }
+
+    .theme-card {
+      flex-shrink: 0;
+      width: 140px;
+      border: 2px solid var(--gray);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .theme-card:hover {
+      border-color: var(--black);
+    }
+
+    .theme-card.selected {
+      border-color: var(--black);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .theme-preview {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theme-preview.default {
+      background: linear-gradient(135deg, var(--violet) 0%, var(--yellow) 50%, var(--coral) 100%);
+    }
+
+    .theme-preview.halloween {
+      background: linear-gradient(135deg, #ff6b00 0%, #1a1a1a 100%);
+    }
+
+    .theme-preview.christmas {
+      background: linear-gradient(135deg, #c41e3a 0%, #228b22 100%);
+    }
+
+    .theme-preview.summer {
+      background: linear-gradient(135deg, #00d4ff 0%, #ffd700 100%);
+    }
+
+    .theme-preview.valentine {
+      background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+    }
+
+    .theme-preview.spring {
+      background: linear-gradient(135deg, #98fb98 0%, #ff69b4 100%);
+    }
+
+    .theme-preview-wheel {
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(255,255,255,0.8);
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+    }
+
+    .theme-card-info {
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--white);
+    }
+
+    .theme-card-radio {
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--black);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theme-card.selected .theme-card-radio::after {
+      content: "";
+      width: 6px;
+      height: 6px;
+      background: var(--black);
+      border-radius: 50%;
+    }
+
+    .theme-card-name {
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* Customize button */
+    .customize-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: var(--gray-light);
+      border: 2px solid var(--gray);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-top: 12px;
+    }
+
+    .customize-btn:hover {
+      border-color: var(--black);
+    }
+
+    .customize-btn-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .customize-btn-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--white);
+      border: 2px solid var(--gray);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .customize-btn-info h4 {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .customize-btn-info p {
+      font-size: 11px;
+      color: var(--gray-dark);
+    }
+
+    .customize-btn-arrow {
+      font-size: 16px;
+      color: var(--gray-dark);
+    }
+
+    /* ============================================
+       STEP 4: PERSONNALISATION DES SUPPORTS
+       ============================================ */
+
+    .support-section {
+      margin-bottom: 24px;
+    }
+
+    .support-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .support-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .support-section-count {
+      font-size: 11px;
+      color: var(--gray-medium);
+      font-weight: 400;
+    }
+
+    .supports-carousel {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 4px 0 12px;
+    }
+
+    .supports-carousel::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .supports-carousel::-webkit-scrollbar-track {
+      background: var(--gray-light);
+      border-radius: 3px;
+    }
+
+    .supports-carousel::-webkit-scrollbar-thumb {
+      background: var(--gray);
+      border-radius: 3px;
+    }
+
+    .support-card {
+      flex-shrink: 0;
+      width: 160px;
+      border: 2px solid var(--gray);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.15s;
+      background: var(--white);
+    }
+
+    .support-card:hover {
+      border-color: var(--black);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .support-card.selected {
+      border-color: var(--black);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .support-preview {
+      height: 100px;
+      background: var(--gray-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .support-preview-inner {
+      background: var(--white);
+      border: 2px solid var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--gray-dark);
+    }
+
+    .support-preview-inner.a3 {
+      width: 50px;
+      height: 70px;
+    }
+
+    .support-preview-inner.a4 {
+      width: 45px;
+      height: 64px;
+    }
+
+    .support-preview-inner.a5 {
+      width: 40px;
+      height: 56px;
+    }
+
+    .support-preview-inner.a6 {
+      width: 35px;
+      height: 50px;
+    }
+
+    .support-preview-inner.square {
+      width: 50px;
+      height: 50px;
+      border-radius: 4px;
+    }
+
+    .support-preview-inner.circle {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+    }
+
+    .support-preview-inner.badge-rect {
+      width: 60px;
+      height: 30px;
+      border-radius: 4px;
+    }
+
+    .support-preview-inner.tent {
+      width: 50px;
+      height: 40px;
+      border-radius: 4px 4px 0 0;
+      position: relative;
+    }
+
+    .support-preview-inner.tent::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      right: 0;
+      height: 10px;
+      background: var(--gray);
+      border: 2px solid var(--black);
+      border-top: none;
+    }
+
+    .support-preview-qr {
+      width: 20px;
+      height: 20px;
+      background: var(--black);
+      border-radius: 2px;
+      margin: 4px auto;
+    }
+
+    .support-card-info {
+      padding: 10px;
+      border-top: 2px solid var(--gray);
+    }
+
+    .support-card-name {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .support-card-size {
+      font-size: 10px;
+      color: var(--gray-dark);
+    }
+
+    .support-card-customize {
+      margin-top: 8px;
+      padding: 6px 10px;
+      background: var(--violet-light);
+      border: 1.5px solid var(--violet-dark);
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--black);
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.15s;
+    }
+
+    .support-card-customize:hover {
+      background: var(--violet);
+      border-color: var(--black);
+    }
+
+    .support-card-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .support-card-btn {
+      flex: 1;
+      padding: 6px 8px;
+      border: 1.5px solid var(--gray);
+      border-radius: 5px;
+      background: var(--white);
+      font-family: inherit;
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .support-card-btn:hover {
+      border-color: var(--black);
+    }
+
+    .support-card-btn.primary {
+      background: var(--violet);
+      border-color: var(--black);
+    }
+
+    /* ============================================
+       STEP 5: LANCEMENT
+       ============================================ */
+
+    .launch-recap {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .recap-card {
+      background: var(--white);
+      border: var(--border-thin);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .recap-card-icon {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .recap-card-value {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .recap-card-label {
+      font-size: 11px;
+      color: var(--gray-dark);
+    }
+
+    .launch-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .launch-action {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
+      background: var(--white);
+      border: var(--border-thin);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .launch-action:hover {
+      box-shadow: var(--shadow-sm);
+      transform: translateX(4px);
+    }
+
+    .launch-action-icon {
+      width: 42px;
+      height: 42px;
+      background: var(--violet);
+      border: var(--border-thin);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .launch-action-icon.yellow {
+      background: var(--yellow);
+    }
+
+    .launch-action-info {
+      flex: 1;
+    }
+
+    .launch-action-info h4 {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .launch-action-info p {
+      font-size: 12px;
+      color: var(--gray-dark);
+    }
+
+    .launch-action-arrow {
+      font-size: 18px;
+      color: var(--gray-medium);
+    }
+
+    /* Launch Recap Simple */
+    /* Launch Step 5 - Nouveau design */
+    .launch-summary {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+      background: var(--white);
+      border: var(--border-thin);
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .launch-summary-preview {
+      width: 80px;
+      height: 80px;
+      background: var(--violet-light);
+      border: 2px solid var(--black);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .launch-mini-wheel {
+      width: 50px;
+      height: 50px;
+    }
+
+    .mini-wheel-visual {
+      width: 100%;
+      height: 100%;
+      border: 2px solid var(--black);
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--violet) 0deg 90deg,
+        var(--yellow) 90deg 180deg,
+        var(--coral) 180deg 270deg,
+        var(--violet-light) 270deg 360deg
+      );
+    }
+
+    .launch-summary-info h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .launch-status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background: var(--yellow);
+      border: 2px solid var(--black);
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .launch-date {
+      font-size: 12px;
+      color: var(--gray-dark);
+    }
+
+    .launch-checklist {
+      background: var(--white);
+      border: var(--border-thin);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .launch-checklist-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .launch-checklist-items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .launch-check-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--gray-light);
+      border: 2px solid transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .launch-check-item:hover {
+      border-color: var(--violet);
+      background: var(--violet-light);
+    }
+
+    .launch-check-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .launch-check-info {
+      flex: 1;
+    }
+
+    .launch-check-info h4 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .launch-check-info p {
+      font-size: 11px;
+      color: var(--gray-dark);
+    }
+
+    .launch-check-edit {
+      opacity: 0;
+      font-size: 14px;
+      transition: opacity 0.15s;
+    }
+
+    .launch-check-item:hover .launch-check-edit {
+      opacity: 1;
+    }
+
+    .launch-cta {
+      margin-bottom: 16px;
+    }
+
+    .btn-launch {
+      width: 100%;
+      padding: 16px 24px;
+      background: var(--green);
+      border: 3px solid var(--black);
+      border-radius: 12px;
+      color: var(--white);
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 var(--black);
+      transition: all 0.15s;
+    }
+
+    .btn-launch:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--black);
+    }
+
+    .btn-launch-recap {
+      width: 100%;
+      padding: 16px 24px;
+      background: var(--violet);
+      border: 3px solid var(--black);
+      border-radius: 12px;
+      color: var(--black);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 var(--black);
+      transition: all 0.15s;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-launch-recap:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--black);
+    }
+
+    .btn-success {
+      background: var(--green) !important;
+      color: var(--white) !important;
+      border: 3px solid var(--black) !important;
+      box-shadow: 4px 4px 0 var(--black) !important;
+    }
+
+    .btn-success:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--black) !important;
+    }
+
+    .launch-secondary-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .launch-secondary-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 12px;
+      background: var(--white);
+      border: 2px solid var(--gray);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .launch-secondary-btn:hover {
+      border-color: var(--black);
+      background: var(--violet-light);
+    }
+
+    .launch-secondary-btn span {
+      font-size: 16px;
+    }
+
+    /* Editor Modal - Split view avec aperçu */
+    .editor-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .editor-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .editor-modal {
+      background: var(--white);
+      border: var(--border);
+      border-radius: 16px;
+      width: 95%;
+      max-width: 1100px;
+      max-height: 90vh;
+      margin: auto;
+      overflow: hidden;
+      transform: translateY(20px);
+      transition: transform 0.3s;
+      box-shadow: 8px 8px 0 var(--black);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .editor-overlay.open .editor-modal {
+      transform: translateY(0);
+    }
+
+    .editor-header {
+      padding: 16px 20px;
+      border-bottom: var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--violet-light);
+      flex-shrink: 0;
+    }
+
+    .editor-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .editor-close {
+      width: 36px;
+      height: 36px;
+      border: var(--border-thin);
+      border-radius: 8px;
+      background: var(--white);
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .editor-close:hover {
+      background: var(--coral-light);
+    }
+
+    .editor-content {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .editor-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      max-width: 600px;
+      border-right: var(--border);
+    }
+
+    .editor-preview {
+      flex: 1;
+      background: var(--violet-light);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      min-width: 320px;
+    }
+
+    .editor-preview-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-dark);
+      margin-bottom: 16px;
+    }
+
+    .editor-preview .phone-frame {
+      transform: scale(0.85);
+    }
+
+    .editor-section {
+      margin-bottom: 28px;
+      padding-bottom: 24px;
+      border-bottom: 2px solid var(--gray);
+    }
+
+    .editor-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .editor-section-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .editor-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .editor-row.two-cols {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .editor-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .editor-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .editor-field.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .editor-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-dark);
+      text-transform: uppercase;
+    }
+
+    .editor-input,
+    .editor-select {
+      padding: 10px 12px;
+      border: var(--border-thin);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+    }
+
+    .editor-input:focus {
+      outline: none;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .editor-color-input {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: var(--border-thin);
+      border-radius: 8px;
+      background: var(--white);
+    }
+
+    .color-swatch {
+      width: 28px;
+      height: 28px;
+      border: 2px solid var(--black);
+      border-radius: 6px;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .color-value {
+      flex: 1;
+      border: none;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      background: transparent;
+    }
+
+    .color-value:focus {
+      outline: none;
+    }
+
+    .editor-upload {
+      border: 2px dashed var(--gray);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .editor-upload:hover {
+      border-color: var(--black);
+      background: var(--gray-light);
+    }
+
+    .editor-upload-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .editor-upload-text {
+      font-size: 12px;
+      color: var(--gray-dark);
+    }
+
+    .editor-footer {
+      padding: 16px 20px;
+      border-top: var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      background: var(--gray-light);
+    }
+
+    /* Editor Advanced Section */
+    .editor-advanced-section {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 2px dashed var(--gray);
+    }
+
+    .editor-advanced-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-dark);
+      cursor: pointer;
+      padding: 8px 0;
+    }
+
+    .editor-advanced-toggle:hover {
+      color: var(--black);
+    }
+
+    .editor-advanced-content {
+      display: none;
+      margin-top: 16px;
+    }
+
+    .editor-advanced-content.open {
+      display: block;
+    }
+
+    /* Editor Tabs */
+    .editor-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--gray);
+    }
+
+    .editor-tab {
+      padding: 10px 16px;
+      background: var(--gray-light);
+      border: 2px solid var(--gray);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .editor-tab:hover {
+      border-color: var(--black);
+    }
+
+    .editor-tab.active {
+      background: var(--violet);
+      border-color: var(--black);
+    }
+
+    .editor-tab-content {
+      display: none;
+    }
+
+    .editor-tab-content.active {
+      display: block;
+    }
+
+    /* Step Footer */
+    .step-footer {
+      padding: 14px 24px;
+      border-top: var(--border);
+      background: var(--white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: var(--border-thin);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 var(--black);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border-color: transparent;
+    }
+
+    .btn-ghost:hover {
+      background: var(--gray-light);
+      transform: none;
+      box-shadow: none;
+    }
+
+    .btn-primary {
+      background: var(--violet);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-success {
+      background: var(--green);
+      color: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Preview Panel */
+    .preview-panel {
+      flex: 1;
+      background: var(--violet-light);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px;
+      overflow-y: auto;
+    }
+
+    .preview-tabs {
+      display: flex;
+      background: var(--white);
+      border: var(--border-thin);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .preview-tab {
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border-right: 2px solid var(--black);
+      transition: all 0.15s;
+    }
+
+    .preview-tab:last-child {
+      border-right: none;
+    }
+
+    .preview-tab:hover {
+      background: var(--gray-light);
+    }
+
+    .preview-tab.active {
+      background: var(--violet);
+    }
+
+    .phone-frame {
+      width: 300px;
+      height: 600px;
+      background: var(--black);
+      border-radius: 36px;
+      padding: 10px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    .phone-notch {
+      width: 80px;
+      height: 24px;
+      background: var(--black);
+      border-radius: 0 0 12px 12px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: var(--white);
+      border-radius: 28px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phone-header {
+      background: var(--violet);
+      padding: 40px 16px 16px;
+      text-align: center;
+    }
+
+    .phone-logo {
+      width: 48px;
+      height: 48px;
+      background: var(--white);
+      border: 2px solid var(--black);
+      border-radius: 10px;
+      margin: 0 auto 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 700;
+    }
+
+    .phone-title {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .phone-wheel {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wheel-visual {
+      width: 180px;
+      height: 180px;
+      border: 4px solid var(--black);
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--violet) 0deg 90deg,
+        var(--yellow) 90deg 162deg,
+        var(--coral) 162deg 216deg,
+        #ccc 216deg 360deg
+      );
+      position: relative;
+      box-shadow: var(--shadow);
+    }
+
+    .wheel-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px;
+      height: 56px;
+      background: var(--black);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    .wheel-pointer {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 10px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 14px solid var(--black);
+    }
+
+    .phone-footer {
+      padding: 10px;
+      border-top: 2px solid var(--gray);
+      display: flex;
+      justify-content: space-between;
+      font-size: 8px;
+      color: var(--gray-dark);
+    }
+
+    .preview-hint {
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--gray-dark);
+      text-align: center;
+    }
+
+    /* Preview Toolbar */
+    .preview-toolbar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .preview-toolbar-btn {
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--gray);
+      border-radius: 12px;
+      background: var(--white);
+      cursor: pointer;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .preview-toolbar-btn:hover {
+      border-color: var(--black);
+      background: var(--violet-light);
+      transform: translateY(-2px);
+      box-shadow: 3px 3px 0 var(--black);
+    }
+
+    /* Inline Editor (Step 3) */
+    .inline-editor {
+      background: var(--white);
+      border: var(--border-thin);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .inline-editor-tabs {
+      display: flex;
+      background: var(--gray-light);
+      border-bottom: var(--border-thin);
+      padding: 8px 8px 0;
+      gap: 4px;
+    }
+
+    .inline-tab {
+      padding: 10px 16px;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-dark);
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-bottom: -2px;
+    }
+
+    .inline-tab:hover {
+      color: var(--black);
+    }
+
+    .inline-tab.active {
+      background: var(--white);
+      color: var(--black);
+      border-bottom-color: var(--violet);
+      border-radius: 8px 8px 0 0;
+    }
+
+    .inline-tab-content {
+      display: none;
+      padding: 20px;
+    }
+
+    .inline-tab-content.active {
+      display: block;
+    }
+
+    .inline-section {
+      margin-bottom: 20px;
+    }
+
+    .inline-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .inline-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--black);
+    }
+
+    .inline-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .inline-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .inline-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .inline-field.wide {
+      grid-column: span 3;
+    }
+
+    .inline-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--gray-dark);
+      text-transform: uppercase;
+    }
+
+    .inline-input,
+    .inline-select {
+      padding: 10px 12px;
+      border: 2px solid var(--gray);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+    }
+
+    .inline-input:focus,
+    .inline-select:focus {
+      outline: none;
+      border-color: var(--violet);
+    }
+
+    .inline-upload {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 12px;
+      border: 2px dashed var(--gray);
+      border-radius: 8px;
+      font-size: 12px;
+      color: var(--gray-dark);
+      cursor: pointer;
+    }
+
+    .inline-upload:hover {
+      border-color: var(--black);
+      background: var(--gray-light);
+    }
+
+    .inline-color {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 2px solid var(--gray);
+      border-radius: 8px;
+    }
+
+    .inline-color input[type="color"] {
+      width: 28px;
+      height: 28px;
+      border: 2px solid var(--black);
+      border-radius: 6px;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .inline-color span {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gray-dark);
+    }
+
+    .inline-advanced {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 2px dashed var(--gray);
+    }
+
+    .inline-advanced-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-dark);
+      cursor: pointer;
+    }
+
+    .inline-advanced-toggle:hover {
+      color: var(--black);
+    }
+
+    .inline-advanced-content {
+      display: none;
+      margin-top: 16px;
+    }
+
+    .inline-advanced-content.open {
+      display: block;
+    }
+
+    .theme-option .inline-editor {
+      margin-top: 16px;
+      border: none;
+      background: var(--gray-light);
+    }
+
+    /* Modals */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal {
+      background: var(--white);
+      border: var(--border);
+      border-radius: 14px;
+      width: 90%;
+      max-width: 420px;
+      overflow: hidden;
+      transform: translateY(20px);
+      transition: transform 0.3s;
+      box-shadow: 6px 6px 0 var(--black);
+    }
+
+    .modal.large {
+      max-width: 520px;
+    }
+
+    /* QR Modal Styles */
+    .qr-modal {
+      max-width: 380px;
+    }
+
+    .qr-link-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .qr-link-input {
+      flex: 1;
+      padding: 12px 14px;
+      border: 2px solid var(--gray);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 13px;
+      background: var(--gray-light);
+      color: var(--gray-dark);
+    }
+
+    .qr-copy-btn {
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--gray);
+      border-radius: 10px;
+      background: var(--white);
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .qr-copy-btn:hover {
+      border-color: var(--black);
+      background: var(--violet-light);
+    }
+
+    .qr-download-btn {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid var(--gray);
+      border-radius: 10px;
+      background: var(--white);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: all 0.15s;
+    }
+
+    .qr-download-btn:hover {
+      border-color: var(--black);
+      background: var(--violet-light);
+    }
+
+    .qr-preview {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+      background: var(--gray-light);
+      border-radius: 10px;
+    }
+
+    .qr-code-placeholder svg {
+      display: block;
+    }
+
+    /* Success Modal */
+    .success-modal {
+      max-width: 420px;
+      text-align: center;
+    }
+
+    .success-content {
+      padding: 40px 30px;
+    }
+
+    .success-confetti {
+      font-size: 64px;
+      margin-bottom: 16px;
+      animation: bounce 0.6s ease-out;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .success-content h2 {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .success-content p {
+      font-size: 14px;
+      color: var(--gray-dark);
+      margin-bottom: 24px;
+    }
+
+    .success-stats {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .success-stat {
+      padding: 12px 20px;
+      background: var(--violet-light);
+      border: 2px solid var(--violet);
+      border-radius: 10px;
+    }
+
+    .success-stat-value {
+      display: block;
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .success-stat-label {
+      font-size: 11px;
+      color: var(--gray-dark);
+    }
+
+    .success-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .success-actions .btn {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+    }
+
+    .success-qr-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .success-video-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 12px 20px;
+      margin-top: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-dark);
+      text-decoration: none;
+      background: var(--gray-light);
+      border: 2px solid var(--gray);
+      border-radius: 10px;
+      transition: all 0.15s;
+    }
+
+    .success-video-link:hover {
+      color: var(--black);
+      border-color: var(--black);
+      background: var(--violet-light);
+    }
+
+    .success-video-link span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      background: var(--violet);
+      border-radius: 50%;
+      font-size: 10px;
+      color: var(--black);
+    }
+
+    .modal-overlay.open .modal {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .modal-close {
+      width: 32px;
+      height: 32px;
+      border: var(--border-thin);
+      border-radius: 6px;
+      background: var(--white);
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close:hover {
+      background: var(--coral-light);
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+    .modal-footer {
+      padding: 14px 20px;
+      border-top: var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      background: var(--gray-light);
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--gray-dark);
+      text-transform: uppercase;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: var(--border-thin);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-select {
+      width: 100%;
+      padding: 10px 12px;
+      border: var(--border-thin);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      background: var(--white);
+    }
+
+    .input-with-suffix {
+      position: relative;
+    }
+
+    .input-with-suffix input {
+      padding-right: 36px;
+    }
+
+    .input-suffix {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-dark);
+    }
+
+    .radio-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .radio-pill {
+      flex: 1;
+      padding: 10px 12px;
+      border: 2px solid var(--gray);
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .radio-pill:hover {
+      border-color: var(--black);
+    }
+
+    .radio-pill.selected {
+      border-color: var(--black);
+      background: var(--violet-light);
+    }
+
+    .radio-pill-title {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .advanced-section {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--gray);
+    }
+
+    .advanced-toggle-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--gray-dark);
+      cursor: pointer;
+    }
+
+    .advanced-content {
+      display: none;
+      margin-top: 12px;
+    }
+
+    .advanced-content.open {
+      display: block;
+    }
+
+    .form-hint {
+      font-size: 10px;
+      color: var(--gray-medium);
+      margin-top: 4px;
+    }
+
+    /* Drawers */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .drawer-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .settings-drawer {
+      position: fixed;
+      top: 0;
+      right: -360px;
+      width: 360px;
+      height: 100vh;
+      background: var(--white);
+      border-left: var(--border);
+      z-index: 501;
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .settings-drawer.open {
+      right: 0;
+    }
+
+    .drawer-header {
+      padding: 16px 18px;
+      border-bottom: var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .drawer-title {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .drawer-close {
+      width: 32px;
+      height: 32px;
+      border: var(--border-thin);
+      border-radius: 6px;
+      background: var(--white);
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .drawer-content {
+      flex: 1;
+      padding: 18px;
+      overflow-y: auto;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      background: var(--gray-light);
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .toggle-info h4 {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .toggle-info p {
+      font-size: 10px;
+      color: var(--gray-dark);
+    }
+
+    .toggle-switch {
+      width: 40px;
+      height: 24px;
+      background: var(--gray);
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .toggle-switch::after {
+      content: "";
+      width: 18px;
+      height: 18px;
+      background: var(--white);
+      border: 2px solid var(--black);
+      border-radius: 50%;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: all 0.2s;
+    }
+
+    .toggle-switch.active {
+      background: var(--green);
+    }
+
+    .toggle-switch.active::after {
+      left: 19px;
+    }
+
+    /* Hide non-active steps */
+    .step-page {
+      display: none;
+    }
+
+    .step-page.active {
+      display: block;
+    }
+
+    .video-placeholder {
+      aspect-ratio: 16/9;
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">CADEO</div>
+    <ul class="sidebar-nav">
+      <li class="active">
+        <span class="icon">🎰</span>
+        Roue boost
+      </li>
+      <li>
+        <span class="icon">💬</span>
+        Gestion avis
+      </li>
+      <li>
+        <span class="icon">🎮</span>
+        Jeux concours
+        <span class="badge">Bientôt</span>
+      </li>
+      <li>
+        <span class="icon">📣</span>
+        Marketing
+        <span class="badge">Bientôt</span>
+      </li>
+      <li>
+        <span class="icon">👥</span>
+        CRM clients
+      </li>
+      <li>
+        <span class="icon">👨‍👩‍👧</span>
+        Mon équipe
+      </li>
+      <li>
+        <span class="icon">❓</span>
+        Assistance
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+    
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="header-left">
+        <button class="back-btn">←</button>
+        <div class="campaign-info">
+          <span class="campaign-name">Ma Roue Boost</span>
+          <div class="campaign-status">
+            <span class="status-dot"></span>
+            Brouillon
+          </div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="account-btn">📊 Performances</div>
+        <div class="video-link" onclick="openVideoModal()">
+          <span class="play-icon">▶</span>
+          Créez une campagne performante
+        </div>
+        <button class="settings-btn" onclick="openDrawer()">⚙️</button>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="content-wrapper">
+      
+      <!-- Steps Panel -->
+      <section class="steps-panel">
+        
+        <!-- Progress Header - Now 5 steps -->
+        <div class="progress-header">
+          <div class="progress-steps">
+            <div class="progress-step active" data-step="1">
+              <div class="step-number">1</div>
+              <span class="step-label">Objectifs</span>
+            </div>
+            <div class="step-connector"></div>
+            <div class="progress-step" data-step="2">
+              <div class="step-number">2</div>
+              <span class="step-label">Cadeaux</span>
+            </div>
+            <div class="step-connector"></div>
+            <div class="progress-step" data-step="3">
+              <div class="step-number">3</div>
+              <span class="step-label">Page de jeu</span>
+            </div>
+            <div class="step-connector"></div>
+            <div class="progress-step" data-step="4">
+              <div class="step-number">4</div>
+              <span class="step-label">Supports</span>
+            </div>
+            <div class="step-connector"></div>
+            <div class="progress-step" data-step="5">
+              <div class="step-number">5</div>
+              <span class="step-label">Lancement</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step Content -->
+        <div class="step-content">
+          
+          <!-- STEP 1: OBJECTIFS -->
+          <div class="step-page active" data-step="1">
+            <div class="step-header">
+              <h2 class="step-title">🎯 Objectifs</h2>
+              <p class="step-subtitle">Que doivent faire vos clients pour jouer ?</p>
+            </div>
+
+            <div class="objectives-list">
+              <div class="objective-item google">
+                <div class="objective-header">
+                  <span class="objective-drag">⋮⋮</span>
+                  <span class="objective-visit-badge">Visite 1</span>
+                  <div class="objective-icon">⭐</div>
+                  <div class="objective-info">
+                    <p>Le joueur devra <span class="objective-action-highlight">Laisser un avis Google</span></p>
+                  </div>
+                  <div class="objective-actions">
+                    <button class="obj-action-btn">↑</button>
+                    <button class="obj-action-btn">↓</button>
+                    <button class="obj-action-btn">✏️</button>
+                    <button class="obj-action-btn delete">🗑️</button>
+                  </div>
+                </div>
+                <div class="objective-config">
+                  <div class="config-row">
+                    <label>Lien :</label>
+                    <input type="text" class="config-link" value="https://g.page/r/mon-resto/review">
+                    <button class="test-btn">🔗 Tester</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="objective-item instagram">
+                <div class="objective-header">
+                  <span class="objective-drag">⋮⋮</span>
+                  <span class="objective-visit-badge">Visite 2</span>
+                  <div class="objective-icon">📸</div>
+                  <div class="objective-info">
+                    <p>Le joueur devra <span class="objective-action-highlight">S'abonner sur Instagram</span></p>
+                  </div>
+                  <div class="objective-actions">
+                    <button class="obj-action-btn">↑</button>
+                    <button class="obj-action-btn">↓</button>
+                    <button class="obj-action-btn">✏️</button>
+                    <button class="obj-action-btn delete">🗑️</button>
+                  </div>
+                </div>
+                <div class="objective-config">
+                  <div class="config-row">
+                    <label>Lien :</label>
+                    <input type="text" class="config-link" value="https://instagram.com/monresto">
+                    <button class="test-btn">🔗 Tester</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="add-objective-section">
+              <div class="section-label">➕ Ajouter un objectif</div>
+              <div class="objectives-grid">
+                <div class="objective-card disabled">
+                  <div class="objective-card-icon">⭐</div>
+                  <div class="objective-card-name">Google</div>
+                </div>
+                <div class="objective-card disabled">
+                  <div class="objective-card-icon">📸</div>
+                  <div class="objective-card-name">Instagram</div>
+                </div>
+                <div class="objective-card" onclick="openObjectiveModal('Facebook')">
+                  <div class="objective-card-icon">👍</div>
+                  <div class="objective-card-name">Facebook</div>
+                </div>
+                <div class="objective-card" onclick="openObjectiveModal('TikTok')">
+                  <div class="objective-card-icon">🎵</div>
+                  <div class="objective-card-name">TikTok</div>
+                </div>
+                <div class="objective-card" onclick="openObjectiveModal('TripAdvisor')">
+                  <div class="objective-card-icon">🍴</div>
+                  <div class="objective-card-name">TripAdvisor</div>
+                </div>
+                <div class="objective-card" onclick="openObjectiveModal('Snapchat')">
+                  <div class="objective-card-icon">👻</div>
+                  <div class="objective-card-name">Snapchat</div>
+                </div>
+                <div class="objective-card" onclick="openObjectiveModal('LinkedIn')">
+                  <div class="objective-card-icon">💼</div>
+                  <div class="objective-card-name">LinkedIn</div>
+                </div>
+                <div class="objective-card" onclick="openObjectiveModal('TrustPilot')">
+                  <div class="objective-card-icon">✨</div>
+                  <div class="objective-card-name">TrustPilot</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2: CADEAUX -->
+          <div class="step-page" data-step="2">
+            <div class="step-header">
+              <div class="step-header-top">
+                <h2 class="step-title">🎁 Cadeaux</h2>
+                <span class="gifts-counter">3/9</span>
+              </div>
+              <p class="step-subtitle">Configurez les lots à gagner</p>
+            </div>
+
+            <div class="distribution-bar-container">
+              <div class="distribution-bar-header">
+                <h4>📊 Répartition des cadeaux</h4>
+              </div>
+              <div class="distribution-bar">
+                <div class="distribution-segment" style="width: 42%; background: var(--violet);">Café 42%</div>
+                <div class="distribution-segment" style="width: 33%; background: var(--yellow);">Dessert 33%</div>
+                <div class="distribution-segment" style="width: 25%; background: var(--coral);">-10% 25%</div>
+              </div>
+              <p class="distribution-hint">🎯 <strong>1 cadeau sera offert toutes les 2 participations</strong> (60% de chances de gagner)</p>
+            </div>
+
+            <!-- Empty state (masqué si cadeaux présents) -->
+            <div class="gifts-empty" id="giftsEmpty" style="display: none;">
+              <div class="gifts-empty-icon">🎁</div>
+              <h4>Aucun cadeau configuré</h4>
+              <p>Ajoutez vos premiers lots à gagner pour faire tourner la roue !</p>
+              <button class="btn btn-primary" onclick="openGiftModal()">+ Ajouter un cadeau</button>
+            </div>
+
+            <div class="gifts-list" id="giftsList">
+              <div class="gift-item" id="gift-cafe" onclick="openGiftModal()">
+                <span class="gift-drag">⋮⋮</span>
+                <div class="gift-color-dot" style="background: var(--violet);"></div>
+                <span class="gift-emoji">☕</span>
+                <div class="gift-details">
+                  <div class="gift-name">Café offert</div>
+                  <div class="gift-meta">42% • Immédiat • 1 mois</div>
+                </div>
+                <div class="gift-actions" onclick="event.stopPropagation()">
+                  <button class="gift-action-btn" onclick="openGiftModal()">✏️</button>
+                  <button class="gift-action-btn delete" onclick="deleteGift('gift-cafe')">🗑️</button>
+                </div>
+              </div>
+
+              <div class="gift-item" id="gift-dessert" onclick="openGiftModal()">
+                <span class="gift-drag">⋮⋮</span>
+                <div class="gift-color-dot" style="background: var(--yellow);"></div>
+                <span class="gift-emoji">🍰</span>
+                <div class="gift-details">
+                  <div class="gift-name">Dessert offert</div>
+                  <div class="gift-meta">33% • Immédiat • 1 mois</div>
+                </div>
+                <div class="gift-actions" onclick="event.stopPropagation()">
+                  <button class="gift-action-btn" onclick="openGiftModal()">✏️</button>
+                  <button class="gift-action-btn delete" onclick="deleteGift('gift-dessert')">🗑️</button>
+                </div>
+              </div>
+
+              <div class="gift-item" id="gift-reduc" onclick="openGiftModal()">
+                <span class="gift-drag">⋮⋮</span>
+                <div class="gift-color-dot" style="background: var(--coral);"></div>
+                <span class="gift-emoji">🎫</span>
+                <div class="gift-details">
+                  <div class="gift-name">-10% sur l'addition</div>
+                  <div class="gift-meta">25% • Différé 24h • Min. 20€</div>
+                </div>
+                <div class="gift-actions" onclick="event.stopPropagation()">
+                  <button class="gift-action-btn" onclick="openGiftModal()">✏️</button>
+                  <button class="gift-action-btn delete" onclick="deleteGift('gift-reduc')">🗑️</button>
+                </div>
+              </div>
+
+              <!-- Option case Perdu - fusionnée -->
+              <div class="losing-toggle-row" id="losingToggle">
+                <div class="losing-toggle-left">
+                  <span class="gift-drag">⋮⋮</span>
+                  <div class="gift-color-dot" style="background: #ccc;"></div>
+                  <span class="gift-emoji">😢</span>
+                  <div class="gift-details">
+                    <div class="gift-name">Perdu</div>
+                    <div class="gift-meta" id="losingPercentage">40%</div>
+                  </div>
+                </div>
+                <div class="losing-toggle-right">
+                  <div class="losing-toggle-options">
+                    <label class="losing-radio">
+                      <input type="radio" name="showLosing" checked onchange="toggleLosingCase(true)">
+                      <span>Afficher</span>
+                    </label>
+                    <label class="losing-radio">
+                      <input type="radio" name="showLosing" onchange="toggleLosingCase(false)">
+                      <span>Masquer</span>
+                    </label>
+                  </div>
+                  <button class="gift-action-btn" onclick="openGiftModal()">✏️</button>
+                </div>
+              </div>
+
+              <button class="add-gift-btn" onclick="openGiftModal()">+ Ajouter un cadeau</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: PAGE DE JEU -->
+          <div class="step-page" data-step="3">
+            <div class="step-header">
+              <h2 class="step-title">🎨 Page de jeu</h2>
+              <p class="step-subtitle">Choisissez l'apparence de votre roue</p>
+            </div>
+
+            <!-- Option 1: Affichage standard -->
+            <div class="theme-option selected" onclick="selectThemeOption(this, 'default')">
+              <div class="theme-option-header">
+                <div class="theme-radio"></div>
+                <div class="theme-option-info">
+                  <h4>🎨 Affichage standard</h4>
+                  <p>Le thème Cadeo classique, élégant et professionnel</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Option 2: Modèles -->
+            <div class="theme-option" onclick="selectThemeOption(this, 'preconfig')">
+              <div class="theme-option-header">
+                <div class="theme-radio"></div>
+                <div class="theme-option-info">
+                  <h4>🎃 Modèles</h4>
+                  <p>Choisissez parmi nos thèmes saisonniers</p>
+                </div>
+              </div>
+              <div class="themes-carousel" id="themesCarousel" style="display: none;">
+                <div class="theme-card" onclick="event.stopPropagation(); selectThemeCard(this)">
+                  <div class="theme-preview halloween"><div class="theme-preview-wheel"></div></div>
+                  <div class="theme-card-info">
+                    <div class="theme-card-radio"></div>
+                    <span class="theme-card-name">Halloween 🎃</span>
+                  </div>
+                </div>
+                <div class="theme-card" onclick="event.stopPropagation(); selectThemeCard(this)">
+                  <div class="theme-preview christmas"><div class="theme-preview-wheel"></div></div>
+                  <div class="theme-card-info">
+                    <div class="theme-card-radio"></div>
+                    <span class="theme-card-name">Noël 🎅</span>
+                  </div>
+                </div>
+                <div class="theme-card" onclick="event.stopPropagation(); selectThemeCard(this)">
+                  <div class="theme-preview summer"><div class="theme-preview-wheel"></div></div>
+                  <div class="theme-card-info">
+                    <div class="theme-card-radio"></div>
+                    <span class="theme-card-name">Été ☀️</span>
+                  </div>
+                </div>
+                <div class="theme-card" onclick="event.stopPropagation(); selectThemeCard(this)">
+                  <div class="theme-preview valentine"><div class="theme-preview-wheel"></div></div>
+                  <div class="theme-card-info">
+                    <div class="theme-card-radio"></div>
+                    <span class="theme-card-name">St-Valentin 💕</span>
+                  </div>
+                </div>
+                <div class="theme-card" onclick="event.stopPropagation(); selectThemeCard(this)">
+                  <div class="theme-preview spring"><div class="theme-preview-wheel"></div></div>
+                  <div class="theme-card-info">
+                    <div class="theme-card-radio"></div>
+                    <span class="theme-card-name">Printemps 🌸</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Option 3: Personnaliser l'apparence -->
+            <div class="theme-option" onclick="selectThemeOption(this, 'custom')">
+              <div class="theme-option-header">
+                <div class="theme-radio"></div>
+                <div class="theme-option-info">
+                  <h4>🔧 Personnaliser l'apparence</h4>
+                  <p>Logo, couleurs, polices, textes...</p>
+                </div>
+              </div>
+              
+              <!-- Éditeur inline (affiché quand sélectionné) -->
+              <div class="inline-editor" id="inlineEditor" style="display: none;">
+                <div class="inline-editor-tabs">
+                  <button class="inline-tab active" onclick="event.stopPropagation(); showInlineTab('general')">📷 Général</button>
+                  <button class="inline-tab" onclick="event.stopPropagation(); showInlineTab('texte')">✏️ Texte</button>
+                  <button class="inline-tab" onclick="event.stopPropagation(); showInlineTab('bouton')">🔘 Bouton</button>
+                  <button class="inline-tab" onclick="event.stopPropagation(); showInlineTab('roue')">🎰 Roue</button>
+                </div>
+
+                <!-- Tab: Général -->
+                <div class="inline-tab-content active" id="inline-general">
+                  <div class="inline-section">
+                    <div class="inline-section-title">📷 Logo</div>
+                    <div class="inline-row">
+                      <div class="inline-field">
+                        <label class="inline-label">Logo</label>
+                        <div class="inline-upload"><span>📤</span> Importer</div>
+                      </div>
+                      <div class="inline-field">
+                        <label class="inline-label">Taille (%)</label>
+                        <input type="number" class="inline-input" value="40" min="10" max="100" onclick="event.stopPropagation()">
+                      </div>
+                      <div class="inline-field">
+                        <label class="inline-label">Alignement</label>
+                        <select class="inline-select" onclick="event.stopPropagation()">
+                          <option selected>Centre</option>
+                          <option>Gauche</option>
+                          <option>Droite</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="inline-section">
+                    <div class="inline-section-title">🖼️ Fond</div>
+                    <div class="inline-row">
+                      <div class="inline-field">
+                        <label class="inline-label">Image</label>
+                        <div class="inline-upload"><span>📤</span> Importer</div>
+                      </div>
+                      <div class="inline-field">
+                        <label class="inline-label">Couleur</label>
+                        <div class="inline-color" onclick="event.stopPropagation()">
+                          <input type="color" value="#d1c8f8">
+                          <span>#D1C8F8</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Tab: Texte -->
+                <div class="inline-tab-content" id="inline-texte">
+                  <div class="inline-section">
+                    <div class="inline-section-title">✏️ Texte du jeu</div>
+                    <div class="inline-row">
+                      <div class="inline-field wide">
+                        <label class="inline-label">Phrase d'accroche</label>
+                        <input type="text" class="inline-input" value="Participez et tentez de gagner un cadeau !" onclick="event.stopPropagation()">
+                      </div>
+                    </div>
+                    <div class="inline-row">
+                      <div class="inline-field">
+                        <label class="inline-label">Couleur</label>
+                        <div class="inline-color" onclick="event.stopPropagation()">
+                          <input type="color" value="#1a1a1a">
+                          <span>#1A1A1A</span>
+                        </div>
+                      </div>
+                      <div class="inline-field">
+                        <label class="inline-label">Taille</label>
+                        <input type="number" class="inline-input" value="18" onclick="event.stopPropagation()">
+                      </div>
+                      <div class="inline-field">
+                        <label class="inline-label">Police</label>
+                        <select class="inline-select" onclick="event.stopPropagation()">
+                          <option selected>Luckiest Guy</option>
+                          <option>Outfit</option>
+                          <option>Roboto</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Tab: Bouton -->
+                <div class="inline-tab-content" id="inline-bouton">
+                  <div class="inline-section">
+                    <div class="inline-section-title">🔘 Bouton "Jouer"</div>
+                    <div class="inline-row">
+                      <div class="inline-field">
+                        <label class="inline-label">Texte</label>
+                        <input type="text" class="inline-input" value="Jouer !" onclick="event.stopPropagation()">
+                      </div>
+                      <div class="inline-field">
+                        <label class="inline-label">Couleur texte</label>
+                        <div class="inline-color" onclick="event.stopPropagation()">
+                          <input type="color" value="#ffffff">
+                          <span>#FFFFFF</span>
+                        </div>
+                      </div>
+                      <div class="inline-field">
+                        <label class="inline-label">Couleur fond</label>
+                        <div class="inline-color" onclick="event.stopPropagation()">
+                          <input type="color" value="#1a1a1a">
+                          <span>#1A1A1A</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Tab: Roue -->
+                <div class="inline-tab-content" id="inline-roue">
+                  <div class="inline-section">
+                    <div class="inline-section-title">🎰 Roue de la fortune</div>
+                    <div class="inline-row">
+                      <div class="inline-field">
+                        <label class="inline-label">Police</label>
+                        <select class="inline-select" onclick="event.stopPropagation()">
+                          <option selected>Luckiest Guy</option>
+                          <option>Outfit</option>
+                        </select>
+                      </div>
+                      <div class="inline-field">
+                        <label class="inline-label">Couleur bordure</label>
+                        <div class="inline-color" onclick="event.stopPropagation()">
+                          <input type="color" value="#1a1a1a">
+                          <span>#1A1A1A</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="inline-row">
+                      <div class="inline-field">
+                        <label class="inline-label">Segment 1</label>
+                        <div class="inline-color" onclick="event.stopPropagation()">
+                          <input type="color" value="#d1c8f8">
+                          <span>#D1C8F8</span>
+                        </div>
+                      </div>
+                      <div class="inline-field">
+                        <label class="inline-label">Segment 2</label>
+                        <div class="inline-color" onclick="event.stopPropagation()">
+                          <input type="color" value="#f7e7a6">
+                          <span>#F7E7A6</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Options avancées (footer) -->
+                  <div class="inline-advanced">
+                    <button class="inline-advanced-toggle" onclick="event.stopPropagation(); toggleInlineAdvanced()">
+                      <span id="inlineAdvancedIcon">▶</span> Options avancées (pied de page)
+                    </button>
+                    <div class="inline-advanced-content" id="inlineAdvancedContent">
+                      <div class="inline-row">
+                        <div class="inline-field">
+                          <label class="inline-label">Texte</label>
+                          <input type="text" class="inline-input" value="Librement" onclick="event.stopPropagation()">
+                        </div>
+                        <div class="inline-field">
+                          <label class="inline-label">Couleur fond</label>
+                          <div class="inline-color" onclick="event.stopPropagation()">
+                            <input type="color" value="#f5f5f5">
+                            <span>#F5F5F5</span>
+                          </div>
+                        </div>
+                        <div class="inline-field">
+                          <label class="inline-label">Couleur texte</label>
+                          <div class="inline-color" onclick="event.stopPropagation()">
+                            <input type="color" value="#666666">
+                            <span>#666666</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 4: SUPPORTS -->
+          <div class="step-page" data-step="4">
+            <div class="step-header">
+              <h2 class="step-title">📄 Supports</h2>
+              <p class="step-subtitle">Personnalisez vos supports imprimables</p>
+            </div>
+
+            <!-- Affiches -->
+            <div class="support-section">
+              <div class="support-section-header">
+                <div class="support-section-title">
+                  📋 Affiches
+                  <span class="support-section-count">4 formats</span>
+                </div>
+              </div>
+              <div class="supports-carousel">
+                <div class="support-card">
+                  <div class="support-preview">
+                    <div class="support-preview-inner a3">
+                      <div class="support-preview-qr"></div>
+                    </div>
+                  </div>
+                  <div class="support-card-info">
+                    <div class="support-card-name">Affiche A3</div>
+                    <div class="support-card-size">297 × 420 mm</div>
+                    <button class="support-card-customize">✏️ Personnaliser</button>
+                  </div>
+                </div>
+                <div class="support-card">
+                  <div class="support-preview">
+                    <div class="support-preview-inner a4">
+                      <div class="support-preview-qr"></div>
+                    </div>
+                  </div>
+                  <div class="support-card-info">
+                    <div class="support-card-name">Affiche A4</div>
+                    <div class="support-card-size">210 × 297 mm</div>
+                    <button class="support-card-customize">✏️ Personnaliser</button>
+                  </div>
+                </div>
+                <div class="support-card">
+                  <div class="support-preview">
+                    <div class="support-preview-inner a5">
+                      <div class="support-preview-qr"></div>
+                    </div>
+                  </div>
+                  <div class="support-card-info">
+                    <div class="support-card-name">Flyer A5</div>
+                    <div class="support-card-size">148 × 210 mm</div>
+                    <button class="support-card-customize">✏️ Personnaliser</button>
+                  </div>
+                </div>
+                <div class="support-card">
+                  <div class="support-preview">
+                    <div class="support-preview-inner a6">
+                      <div class="support-preview-qr"></div>
+                    </div>
+                  </div>
+                  <div class="support-card-info">
+                    <div class="support-card-name">Flyer A6</div>
+                    <div class="support-card-size">105 × 148 mm</div>
+                    <button class="support-card-customize">✏️ Personnaliser</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stickers -->
+            <div class="support-section">
+              <div class="support-section-header">
+                <div class="support-section-title">
+                  🏷️ Stickers
+                  <span class="support-section-count">3 formats</span>
+                </div>
+              </div>
+              <div class="supports-carousel">
+                <div class="support-card">
+                  <div class="support-preview">
+                    <div class="support-preview-inner circle">
+                      <div class="support-preview-qr"></div>
+                    </div>
+                  </div>
+                  <div class="support-card-info">
+                    <div class="support-card-name">Sticker rond</div>
+                    <div class="support-card-size">Ø 80 mm</div>
+                    <button class="support-card-customize">✏️ Personnaliser</button>
+                    </div>
+                </div>
+                <div class="support-card">
+                  <div class="support-preview">
+                    <div class="support-preview-inner square">
+                      <div class="support-preview-qr"></div>
+                    </div>
+                  </div>
+                  <div class="support-card-info">
+                    <div class="support-card-name">Sticker carré</div>
+                    <div class="support-card-size">80 × 80 mm</div>
+                    <button class="support-card-customize">✏️ Personnaliser</button>
+                    </div>
+                </div>
+                <div class="support-card">
+                  <div class="support-preview">
+                    <div class="support-preview-inner badge-rect">
+                      <div class="support-preview-qr" style="width: 14px; height: 14px;"></div>
+                    </div>
+                  </div>
+                  <div class="support-card-info">
+                    <div class="support-card-name">Badge rectangle</div>
+                    <div class="support-card-size">90 × 50 mm</div>
+                    <button class="support-card-customize">✏️ Personnaliser</button>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chevalets -->
+            <div class="support-section">
+              <div class="support-section-header">
+                <div class="support-section-title">
+                  🏠 Chevalets de table
+                  <span class="support-section-count">2 formats</span>
+                </div>
+              </div>
+              <div class="supports-carousel">
+                <div class="support-card">
+                  <div class="support-preview">
+                    <div class="support-preview-inner tent">
+                      <div class="support-preview-qr" style="width: 16px; height: 16px;"></div>
+                    </div>
+                  </div>
+                  <div class="support-card-info">
+                    <div class="support-card-name">Chevalet petit</div>
+                    <div class="support-card-size">100 × 100 mm</div>
+                    <button class="support-card-customize">✏️ Personnaliser</button>
+                    </div>
+                </div>
+                <div class="support-card">
+                  <div class="support-preview">
+                    <div class="support-preview-inner tent" style="width: 60px; height: 50px;">
+                      <div class="support-preview-qr" style="width: 18px; height: 18px;"></div>
+                    </div>
+                  </div>
+                  <div class="support-card-info">
+                    <div class="support-card-name">Chevalet grand</div>
+                    <div class="support-card-size">150 × 150 mm</div>
+                    <button class="support-card-customize">✏️ Personnaliser</button>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 5: LANCEMENT -->
+          <div class="step-page" data-step="5">
+            <div class="step-header">
+              <h2 class="step-title">🚀 Lancement</h2>
+              <p class="step-subtitle">Votre campagne est prête à être lancée !</p>
+            </div>
+
+            <!-- Zone A : Résumé visuel -->
+            <div class="launch-summary">
+              <div class="launch-summary-preview">
+                <div class="launch-mini-wheel">
+                  <div class="mini-wheel-visual"></div>
+                </div>
+              </div>
+              <div class="launch-summary-info">
+                <h3>Ma Roue Boost</h3>
+                <span class="launch-status-badge">Brouillon</span>
+                <p class="launch-date">Créée le 7 décembre 2025</p>
+              </div>
+            </div>
+
+            <!-- Zone B : Checklist de validation -->
+            <div class="launch-checklist">
+              <div class="launch-checklist-title">📋 Checklist de lancement</div>
+              <div class="launch-checklist-items">
+                <div class="launch-check-item" onclick="goToStep(1)">
+                  <span class="launch-check-icon">✓</span>
+                  <div class="launch-check-info">
+                    <h4>2 objectifs configurés</h4>
+                    <p>Avis Google, Abonnement Instagram</p>
+                  </div>
+                  <span class="launch-check-edit">✏️</span>
+                </div>
+                <div class="launch-check-item" onclick="goToStep(2)">
+                  <span class="launch-check-icon">✓</span>
+                  <div class="launch-check-info">
+                    <h4>4 cadeaux configurés</h4>
+                    <p>🎯 1 cadeau offert toutes les 2 participations</p>
+                  </div>
+                  <span class="launch-check-edit">✏️</span>
+                </div>
+                <div class="launch-check-item" onclick="goToStep(3)">
+                  <span class="launch-check-icon">✓</span>
+                  <div class="launch-check-info">
+                    <h4>Page de jeu personnalisée</h4>
+                    <p>Thème Cadeo standard</p>
+                  </div>
+                  <span class="launch-check-edit">✏️</span>
+                </div>
+                <div class="launch-check-item" onclick="goToStep(4)">
+                  <span class="launch-check-icon">✓</span>
+                  <div class="launch-check-info">
+                    <h4>Supports prêts à imprimer</h4>
+                    <p>4 affiches, 3 stickers, 2 chevalets</p>
+                  </div>
+                  <span class="launch-check-edit">✏️</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Zone C : Actions de lancement -->
+            <div class="launch-cta">
+              <button class="btn btn-launch-recap" onclick="launchCampaign()">Voir le résumé</button>
+            </div>
+
+            <div class="launch-secondary-actions">
+              <button class="launch-secondary-btn" onclick="openQRModal()">
+                <span>📲</span> Télécharger QR
+              </button>
+              <button class="launch-secondary-btn">
+                <span>🔗</span> Copier le lien
+              </button>
+              <button class="launch-secondary-btn">
+                <span>👁️</span> Prévisualiser
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Step Footer -->
+        <div class="step-footer">
+          <button class="btn btn-ghost" id="prevBtn" style="visibility: hidden;">← Retour</button>
+          <div></div>
+          <button class="btn btn-primary" id="nextBtn" onclick="nextStep()">Continuer →</button>
+        </div>
+
+      </section>
+
+      <!-- Preview Panel -->
+      <aside class="preview-panel">
+        <!-- Toolbar icônes -->
+        <div class="preview-toolbar">
+          <button class="preview-toolbar-btn" onclick="goToStep(3)" title="Personnaliser">
+            🎨
+          </button>
+          <button class="preview-toolbar-btn" onclick="goToStep(4)" title="Supports">
+            📄
+          </button>
+          <button class="preview-toolbar-btn" onclick="openQRModal()" title="QR & Lien">
+            📲
+          </button>
+        </div>
+
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="phone-header">
+              <div class="phone-logo">LOGO</div>
+              <div class="phone-title">PARTICIPEZ ET TENTEZ DE GAGNER</div>
+            </div>
+            <div class="phone-wheel">
+              <div class="wheel-visual">
+                <div class="wheel-pointer"></div>
+                <div class="wheel-center">JOUER</div>
+              </div>
+            </div>
+            <div class="phone-footer">
+              <span>Règlement</span>
+              <span>Cadeo</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="preview-hint">Aperçu en temps réel</p>
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- Modals -->
+
+  <!-- QR Code Modal -->
+  <div class="modal-overlay" id="qrModal">
+    <div class="modal qr-modal">
+      <div class="modal-header">
+        <h3 class="modal-title">📲 QR Code et lien du jeu</h3>
+        <button class="modal-close" onclick="closeQRModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="qr-link-row">
+          <input type="text" class="qr-link-input" value="https://app.cadeo.fr/game/0fb8e0c" readonly>
+          <button class="qr-copy-btn" onclick="copyGameLink()">📋</button>
+        </div>
+        <button class="qr-download-btn">
+          ⬇️ Télécharger le QR code
+        </button>
+        <div class="qr-preview">
+          <div class="qr-code-placeholder">
+            <svg viewBox="0 0 100 100" width="200" height="200">
+              <rect fill="#000" x="0" y="0" width="30" height="30"/>
+              <rect fill="#fff" x="5" y="5" width="20" height="20"/>
+              <rect fill="#000" x="10" y="10" width="10" height="10"/>
+              <rect fill="#000" x="70" y="0" width="30" height="30"/>
+              <rect fill="#fff" x="75" y="5" width="20" height="20"/>
+              <rect fill="#000" x="80" y="10" width="10" height="10"/>
+              <rect fill="#000" x="0" y="70" width="30" height="30"/>
+              <rect fill="#fff" x="5" y="75" width="20" height="20"/>
+              <rect fill="#000" x="10" y="80" width="10" height="10"/>
+              <rect fill="#000" x="35" y="0" width="5" height="5"/>
+              <rect fill="#000" x="45" y="0" width="5" height="5"/>
+              <rect fill="#000" x="55" y="0" width="5" height="5"/>
+              <rect fill="#000" x="35" y="10" width="5" height="5"/>
+              <rect fill="#000" x="50" y="15" width="5" height="5"/>
+              <rect fill="#000" x="35" y="35" width="5" height="5"/>
+              <rect fill="#000" x="45" y="35" width="5" height="5"/>
+              <rect fill="#000" x="55" y="35" width="5" height="5"/>
+              <rect fill="#000" x="65" y="35" width="5" height="5"/>
+              <rect fill="#000" x="0" y="35" width="5" height="5"/>
+              <rect fill="#000" x="10" y="40" width="5" height="5"/>
+              <rect fill="#000" x="20" y="45" width="5" height="5"/>
+              <rect fill="#000" x="0" y="50" width="5" height="5"/>
+              <rect fill="#000" x="15" y="55" width="5" height="5"/>
+              <rect fill="#000" x="35" y="50" width="30" height="30"/>
+              <rect fill="#000" x="75" y="40" width="5" height="5"/>
+              <rect fill="#000" x="85" y="45" width="5" height="5"/>
+              <rect fill="#000" x="70" y="55" width="5" height="5"/>
+              <rect fill="#000" x="80" y="60" width="5" height="5"/>
+              <rect fill="#000" x="90" y="55" width="5" height="5"/>
+              <rect fill="#000" x="70" y="70" width="5" height="5"/>
+              <rect fill="#000" x="80" y="75" width="5" height="5"/>
+              <rect fill="#000" x="90" y="70" width="5" height="5"/>
+              <rect fill="#000" x="75" y="85" width="5" height="5"/>
+              <rect fill="#000" x="85" y="90" width="5" height="5"/>
+              <rect fill="#000" x="95" y="95" width="5" height="5"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal success-modal">
+      <div class="success-content">
+        <div class="success-confetti">🎉</div>
+        <h2>Campagne lancée !</h2>
+        <p>Votre Roue Boost est maintenant active et prête à engager vos clients.</p>
+        <div class="success-stats">
+          <div class="success-stat">
+            <span class="success-stat-value">2</span>
+            <span class="success-stat-label">Objectifs</span>
+          </div>
+          <div class="success-stat">
+            <span class="success-stat-value">3</span>
+            <span class="success-stat-label">Cadeaux</span>
+          </div>
+          <div class="success-stat">
+            <span class="success-stat-value">60%</span>
+            <span class="success-stat-label">Chances de gagner</span>
+          </div>
+        </div>
+        <div class="success-actions">
+          <button class="btn btn-primary success-qr-btn" onclick="openQRModal(); closeSuccessModal();">📲 Télécharger le QR code</button>
+          <a href="#" class="success-video-link" onclick="openVideoModal(); closeSuccessModal();">
+            <span>▶</span> Comment désactiver les lots ?
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="objectiveModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="objectiveModalTitle">👻 Snapchat</h3>
+        <button class="modal-close" onclick="closeObjectiveModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" id="objectiveModalLabel">URL Snapchat</label>
+          <input type="text" class="form-input" id="objectiveModalInput" placeholder="https://snapchat.com/add/">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="addObjective()" style="width: 100%;">Ajouter</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="giftModal">
+    <div class="modal large">
+      <div class="modal-header">
+        <h3 class="modal-title">🎁 Nouveau cadeau</h3>
+        <button class="modal-close" onclick="closeGiftModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Nom du cadeau</label>
+            <input type="text" class="form-input" placeholder="Ex: 1 Café" value="1 Café">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Pourcentage</label>
+            <div class="input-with-suffix">
+              <input type="number" class="form-input" value="10" min="1" max="100">
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Date limite</label>
+            <select class="form-select">
+              <option>1 semaine</option>
+              <option selected>1 mois</option>
+              <option>2 mois</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Disponibilité</label>
+            <div class="radio-row">
+              <div class="radio-pill selected" onclick="selectPill(this)">
+                <div class="radio-pill-title">Immédiat</div>
+              </div>
+              <div class="radio-pill" onclick="selectPill(this)">
+                <div class="radio-pill-title">Différé 24h</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="advanced-section">
+          <div class="advanced-toggle-btn" onclick="toggleAdvanced()">
+            <span id="advancedIcon">▶</span> Options avancées
+          </div>
+          <div class="advanced-content" id="advancedContent">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Limite de stock</label>
+                <input type="number" class="form-input" placeholder="0 = illimité">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Montant min.</label>
+                <div class="input-with-suffix">
+                  <input type="number" class="form-input" placeholder="0">
+                  <span class="input-suffix">€</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Modalités de retrait</label>
+              <input type="text" class="form-input" placeholder="Ex: Valable sur boissons non alcoolisées">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="closeGiftModal()">Annuler</button>
+        <button class="btn btn-primary" onclick="closeGiftModal()">Ajouter</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="videoModal">
+    <div class="modal large">
+      <div class="modal-header">
+        <h3 class="modal-title">🎬 Comment créer une campagne optimisée ?</h3>
+        <button class="modal-close" onclick="closeVideoModal()">✕</button>
+      </div>
+      <div class="modal-body" style="padding: 0;">
+        <div class="video-placeholder">▶️</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="drawer-overlay" onclick="closeDrawer()"></div>
+  <div class="settings-drawer">
+    <div class="drawer-header">
+      <span class="drawer-title">⚙️ Paramètres</span>
+      <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    </div>
+    <div class="drawer-content">
+      <div class="form-group">
+        <label class="form-label">Nom de la campagne</label>
+        <input type="text" class="form-input" value="Ma Roue Boost">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Devise</label>
+        <select class="form-select">
+          <option>Euro (€)</option>
+          <option>Dollar ($)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Jours entre participations</label>
+        <input type="number" class="form-input" value="1" min="1">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Options</label>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <h4>Seconde chance</h4>
+            <p>Retenter en échange de coordonnées</p>
+          </div>
+          <div class="toggle-switch" onclick="this.classList.toggle('active')"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Code PIN</label>
+        <input type="text" class="form-input" value="1234" maxlength="4" style="width: 80px; text-align: center; letter-spacing: 6px; font-weight: 700;">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    const totalSteps = 5;
+
+    function updateStepUI() {
+      document.querySelectorAll('.progress-step').forEach((step, index) => {
+        const stepNum = index + 1;
+        step.classList.remove('active', 'completed');
+        if (stepNum === currentStep) step.classList.add('active');
+        else if (stepNum < currentStep) step.classList.add('completed');
+      });
+
+      document.querySelectorAll('.step-connector').forEach((conn, index) => {
+        conn.classList.toggle('done', index < currentStep - 1);
+      });
+
+      document.querySelectorAll('.step-page').forEach(page => {
+        page.classList.toggle('active', parseInt(page.dataset.step) === currentStep);
+      });
+
+      document.getElementById('prevBtn').style.visibility = currentStep === 1 ? 'hidden' : 'visible';
+      
+      const nextBtn = document.getElementById('nextBtn');
+      if (currentStep === totalSteps) {
+        nextBtn.innerHTML = '📊 Suivre mes résultats';
+        nextBtn.className = 'btn btn-success';
+      } else {
+        nextBtn.innerHTML = 'Continuer →';
+        nextBtn.className = 'btn btn-primary';
+      }
+    }
+
+    function nextStep() {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        updateStepUI();
+      } else {
+        alert('🎉 Campagne publiée !');
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        updateStepUI();
+      }
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', prevStep);
+
+    document.querySelectorAll('.progress-step').forEach(step => {
+      step.addEventListener('click', () => {
+        const stepNum = parseInt(step.dataset.step);
+        if (stepNum <= currentStep + 1) {
+          currentStep = stepNum;
+          updateStepUI();
+        }
+      });
+    });
+
+    // Theme options
+    function selectThemeOption(element, type) {
+      document.querySelectorAll('.theme-option').forEach(opt => opt.classList.remove('selected'));
+      element.classList.add('selected');
+      
+      // Show/hide sub-content
+      document.getElementById('themesCarousel').style.display = type === 'preconfig' ? 'flex' : 'none';
+      const inlineEditor = document.getElementById('inlineEditor');
+      if (inlineEditor) {
+        inlineEditor.style.display = type === 'custom' ? 'block' : 'none';
+      }
+    }
+
+    function selectThemeCard(card) {
+      document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+    }
+
+    // Modals
+    function openObjectiveModal(name) {
+      document.getElementById('objectiveModalTitle').textContent = name;
+      document.getElementById('objectiveModalLabel').textContent = 'URL ' + name;
+      document.getElementById('objectiveModalInput').value = '';
+      document.getElementById('objectiveModal').classList.add('open');
+    }
+
+    function closeObjectiveModal() {
+      document.getElementById('objectiveModal').classList.remove('open');
+    }
+
+    function addObjective() {
+      const url = document.getElementById('objectiveModalInput').value;
+      if (url) {
+        alert('Objectif ajouté !');
+        closeObjectiveModal();
+      }
+    }
+
+    function openGiftModal() {
+      document.getElementById('giftModal').classList.add('open');
+    }
+
+    function closeGiftModal() {
+      document.getElementById('giftModal').classList.remove('open');
+    }
+
+    function openVideoModal() {
+      document.getElementById('videoModal').classList.add('open');
+    }
+
+    function closeVideoModal() {
+      document.getElementById('videoModal').classList.remove('open');
+    }
+
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) overlay.classList.remove('open');
+      });
+    });
+
+    function selectPill(el) {
+      el.parentElement.querySelectorAll('.radio-pill').forEach(p => p.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    function toggleAdvanced() {
+      const content = document.getElementById('advancedContent');
+      const icon = document.getElementById('advancedIcon');
+      content.classList.toggle('open');
+      icon.textContent = content.classList.contains('open') ? '▼' : '▶';
+    }
+
+    function openDrawer() {
+      document.querySelector('.settings-drawer').classList.add('open');
+      document.querySelector('.drawer-overlay').classList.add('open');
+    }
+
+    function closeDrawer() {
+      document.querySelector('.settings-drawer').classList.remove('open');
+      document.querySelector('.drawer-overlay').classList.remove('open');
+    }
+
+    document.querySelectorAll('.preview-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.preview-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    // Editor Modal
+    function openEditorModal() {
+      document.getElementById('editorModal').classList.add('open');
+    }
+
+    function closeEditorModal() {
+      document.getElementById('editorModal').classList.remove('open');
+    }
+
+    function toggleEditorAdvanced() {
+      const content = document.getElementById('editorAdvancedContent');
+      const icon = document.getElementById('editorAdvancedIcon');
+      content.classList.toggle('open');
+      icon.textContent = content.classList.contains('open') ? '▼' : '▶';
+    }
+
+    function showEditorTab(tabName) {
+      // Désactiver tous les onglets
+      document.querySelectorAll('.editor-tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.editor-tab-content').forEach(content => content.classList.remove('active'));
+      
+      // Activer l'onglet sélectionné
+      event.target.classList.add('active');
+      document.getElementById('tab-' + tabName).classList.add('active');
+    }
+
+    // Preview CTAs
+    function goToStep(step) {
+      currentStep = step;
+      updateStepUI();
+    }
+
+    function openQRModal() {
+      document.getElementById('qrModal').classList.add('open');
+    }
+
+    function closeQRModal() {
+      document.getElementById('qrModal').classList.remove('open');
+    }
+
+    function copyGameLink() {
+      const input = document.querySelector('.qr-link-input');
+      navigator.clipboard.writeText(input.value);
+      alert('Lien copié !');
+    }
+
+    function launchCampaign() {
+      document.getElementById('successModal').classList.add('open');
+    }
+
+    function closeSuccessModal() {
+      document.getElementById('successModal').classList.remove('open');
+    }
+
+    function toggleLosingCase(show) {
+      const losingItem = document.getElementById('losingToggle');
+      if (show) {
+        losingItem.classList.remove('hidden');
+      } else {
+        losingItem.classList.add('hidden');
+      }
+    }
+
+    function deleteGift(giftId) {
+      const gift = document.getElementById(giftId);
+      if (gift) {
+        gift.style.transition = 'all 0.3s';
+        gift.style.opacity = '0';
+        gift.style.transform = 'translateX(-20px)';
+        setTimeout(() => {
+          gift.remove();
+          checkEmptyState();
+          updateGiftCounter();
+        }, 300);
+      }
+    }
+
+    function checkEmptyState() {
+      const giftsList = document.getElementById('giftsList');
+      const giftsEmpty = document.getElementById('giftsEmpty');
+      const distributionBar = document.querySelector('.distribution-bar-container');
+      const addBtn = document.querySelector('.add-gift-btn');
+      const gifts = giftsList.querySelectorAll('.gift-item');
+      
+      if (gifts.length === 0) {
+        giftsEmpty.style.display = 'block';
+        distributionBar.style.display = 'none';
+        document.getElementById('losingToggle').style.display = 'none';
+        if (addBtn) addBtn.style.display = 'none';
+      }
+    }
+
+    function updateGiftCounter() {
+      const giftsList = document.getElementById('giftsList');
+      const gifts = giftsList.querySelectorAll('.gift-item');
+      const counter = document.querySelector('.gifts-counter');
+      if (counter) {
+        counter.textContent = gifts.length + '/9';
+      }
+    }
+
+    function showInlineTab(tabName) {
+      // Désactiver tous les onglets
+      document.querySelectorAll('.inline-tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.inline-tab-content').forEach(content => content.classList.remove('active'));
+      
+      // Activer l'onglet sélectionné
+      event.target.classList.add('active');
+      document.getElementById('inline-' + tabName).classList.add('active');
+    }
+
+    function toggleInlineAdvanced() {
+      const content = document.getElementById('inlineAdvancedContent');
+      const icon = document.getElementById('inlineAdvancedIcon');
+      content.classList.toggle('open');
+      icon.textContent = content.classList.contains('open') ? '▼' : '▶';
+    }
+
+    document.getElementById('editorModal')?.addEventListener('click', (e) => {
+      if (e.target.id === 'editorModal') closeEditorModal();
+    });
+
+    // Sync color inputs
+    document.querySelectorAll('.color-swatch').forEach(swatch => {
+      swatch.addEventListener('input', (e) => {
+        const valueInput = e.target.nextElementSibling;
+        if (valueInput) valueInput.value = e.target.value;
+      });
+    });
+
+    updateStepUI();
+  </script>
+
+  <!-- EDITOR MODAL -->
+  <div class="editor-overlay" id="editorModal">
+    <div class="editor-modal">
+      <div class="editor-header">
+        <h2>🎨 Éditeur de personnalisation</h2>
+        <button class="editor-close" onclick="closeEditorModal()">✕</button>
+      </div>
+      <div class="editor-content">
+        <div class="editor-body">
+        
+        <!-- Navigation par onglets -->
+        <div class="editor-tabs">
+          <button class="editor-tab active" onclick="showEditorTab('general')">📷 Général</button>
+          <button class="editor-tab" onclick="showEditorTab('texte')">✏️ Texte</button>
+          <button class="editor-tab" onclick="showEditorTab('bouton')">🔘 Bouton</button>
+          <button class="editor-tab" onclick="showEditorTab('roue')">🎰 Roue</button>
+        </div>
+
+        <!-- Tab: Général (Logo + Fond) -->
+        <div class="editor-tab-content active" id="tab-general">
+          <!-- Logo -->
+          <div class="editor-section">
+            <div class="editor-section-title">📷 Logo</div>
+            <div class="editor-row">
+              <div class="editor-field">
+                <label class="editor-label">Logo</label>
+                <div class="editor-upload">
+                  <div class="editor-upload-icon">📤</div>
+                  <div class="editor-upload-text">Importer une image</div>
+                </div>
+              </div>
+              <div class="editor-field">
+                <label class="editor-label">Taille du logo (%)</label>
+                <input type="number" class="editor-input" value="40" min="10" max="100">
+              </div>
+              <div class="editor-field">
+                <label class="editor-label">Marge en haut (pixels)</label>
+                <input type="number" class="editor-input" value="40" min="0">
+              </div>
+            </div>
+            <div class="editor-row">
+              <div class="editor-field">
+                <label class="editor-label">Alignement du logo</label>
+                <select class="editor-select">
+                  <option value="center" selected>Centre</option>
+                  <option value="left">Gauche</option>
+                  <option value="right">Droite</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image et/ou couleur de fond -->
+        <div class="editor-section" style="border-bottom: none;">
+          <div class="editor-section-title">🖼️ Image et/ou couleur de fond</div>
+          <div class="editor-row two-cols">
+            <div class="editor-field">
+              <label class="editor-label">Image de fond</label>
+              <div class="editor-upload">
+                <div class="editor-upload-icon">📤</div>
+                <div class="editor-upload-text">Importer une image</div>
+              </div>
+            </div>
+            <div class="editor-field">
+              <label class="editor-label">Couleur de fond</label>
+              <div class="editor-color-input">
+                <input type="color" class="color-swatch" value="#d1c8f8">
+                <input type="text" class="color-value" value="#D1C8F8">
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <!-- Tab: Texte -->
+        <div class="editor-tab-content" id="tab-texte">
+        <!-- Texte du jeu -->
+        <div class="editor-section">
+          <div class="editor-section-title">✏️ Texte du jeu</div>
+          <div class="editor-row">
+            <div class="editor-field" style="grid-column: span 2;">
+              <label class="editor-label">Phrase d'accroche</label>
+              <input type="text" class="editor-input" value="Participez et tentez de gagner un cadeau !">
+            </div>
+            <div class="editor-field">
+              <label class="editor-label">Couleur</label>
+              <div class="editor-color-input">
+                <input type="color" class="color-swatch" value="#1a1a1a">
+                <input type="text" class="color-value" value="#1A1A1A">
+              </div>
+            </div>
+          </div>
+          <div class="editor-row">
+            <div class="editor-field">
+              <label class="editor-label">Taille</label>
+              <input type="number" class="editor-input" value="18" min="10" max="48">
+            </div>
+            <div class="editor-field">
+              <label class="editor-label">Police d'écriture</label>
+              <select class="editor-select">
+                <option selected>Luckiest Guy</option>
+                <option>Outfit</option>
+                <option>Roboto</option>
+                <option>Open Sans</option>
+                <option>Montserrat</option>
+              </select>
+            </div>
+            <div class="editor-field">
+              <label class="editor-label">Graisse</label>
+              <select class="editor-select">
+                <option>Normal</option>
+                <option selected>Bold</option>
+              </select>
+            </div>
+          </div>
+          <div class="editor-row">
+            <div class="editor-field">
+              <label class="editor-label">Alignement du titre</label>
+              <select class="editor-select">
+                <option value="center" selected>Centre</option>
+                <option value="left">Gauche</option>
+                <option value="right">Droite</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <!-- Tab: Bouton -->
+        <div class="editor-tab-content" id="tab-bouton">
+        <!-- Bouton -->
+        <div class="editor-section">
+          <div class="editor-section-title">🔘 Bouton</div>
+          <div class="editor-row">
+            <div class="editor-field">
+              <label class="editor-label">Texte</label>
+              <input type="text" class="editor-input" value="Jouer !">
+            </div>
+            <div class="editor-field">
+              <label class="editor-label">Police d'écriture</label>
+              <select class="editor-select">
+                <option selected>Luckiest Guy</option>
+                <option>Outfit</option>
+                <option>Roboto</option>
+              </select>
+            </div>
+            <div class="editor-field">
+              <label class="editor-label">Taille</label>
+              <input type="number" class="editor-input" value="125" min="50" max="200">
+            </div>
+          </div>
+          <div class="editor-row">
+            <div class="editor-field">
+              <label class="editor-label">Couleur de texte</label>
+              <div class="editor-color-input">
+                <input type="color" class="color-swatch" value="#ffffff">
+                <input type="text" class="color-value" value="#FFFFFF">
+              </div>
+            </div>
+            <div class="editor-field">
+              <label class="editor-label">Couleur de fond</label>
+              <div class="editor-color-input">
+                <input type="color" class="color-swatch" value="#1a1a1a">
+                <input type="text" class="color-value" value="#1A1A1A">
+              </div>
+            </div>
+            <div class="editor-field">
+              <label class="editor-label">Couleur de la bordure</label>
+              <div class="editor-color-input">
+                <input type="color" class="color-swatch" value="#4a90d9">
+                <input type="text" class="color-value" value="#4A90D9">
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <!-- Tab: Roue -->
+        <div class="editor-tab-content" id="tab-roue">
+        <!-- Roue de la fortune -->
+        <div class="editor-section">
+          <div class="editor-section-title">🎰 Roue de la fortune</div>
+          <div class="editor-row two-cols">
+            <div class="editor-field">
+              <label class="editor-label">Police d'écriture</label>
+              <select class="editor-select">
+                <option selected>Luckiest Guy</option>
+                <option>Outfit</option>
+                <option>Roboto</option>
+              </select>
+            </div>
+            <div class="editor-field">
+              <label class="editor-label">Couleur de la bordure</label>
+              <div class="editor-color-input">
+                <input type="color" class="color-swatch" value="#1a1a1a">
+                <input type="text" class="color-value" value="#1A1A1A">
+              </div>
+            </div>
+          </div>
+          <div class="editor-row two-cols">
+            <div class="editor-field">
+              <label class="editor-label">Couleur du bouton #1</label>
+              <div class="editor-color-input">
+                <input type="color" class="color-swatch" value="#4a90d9">
+                <input type="text" class="color-value" value="#4A90D9">
+              </div>
+            </div>
+            <div class="editor-field">
+              <label class="editor-label">Couleur du texte #1</label>
+              <div class="editor-color-input">
+                <input type="color" class="color-swatch" value="#ffffff">
+                <input type="text" class="color-value" value="#FFFFFF">
+              </div>
+            </div>
+          </div>
+          <div class="editor-row two-cols">
+            <div class="editor-field">
+              <label class="editor-label">Couleur de fond #2</label>
+              <div class="editor-color-input">
+                <input type="color" class="color-swatch" value="#ffffff">
+                <input type="text" class="color-value" value="#FFFFFF">
+              </div>
+            </div>
+            <div class="editor-field">
+              <label class="editor-label">Couleur du texte #2</label>
+              <div class="editor-color-input">
+                <input type="color" class="color-swatch" value="#1a1a1a">
+                <input type="text" class="color-value" value="#1A1A1A">
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <!-- Options avancées (masquées par défaut) -->
+        <div class="editor-advanced-section">
+          <button class="editor-advanced-toggle" onclick="toggleEditorAdvanced()">
+            <span id="editorAdvancedIcon">▶</span> Options avancées
+          </button>
+          <div class="editor-advanced-content" id="editorAdvancedContent">
+            <!-- Pied de page -->
+            <div class="editor-section" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+              <div class="editor-section-title">📑 Pied de page</div>
+              <div class="editor-row">
+                <div class="editor-field">
+                  <label class="editor-label">Texte</label>
+                  <input type="text" class="editor-input" value="Librement">
+                </div>
+                <div class="editor-field">
+                  <label class="editor-label">Couleur de fond</label>
+                  <div class="editor-color-input">
+                    <input type="color" class="color-swatch" value="#f5f5f5">
+                    <input type="text" class="color-value" value="#F5F5F5">
+                  </div>
+                </div>
+                <div class="editor-field">
+                  <label class="editor-label">Couleur du texte</label>
+                  <div class="editor-color-input">
+                    <input type="color" class="color-swatch" value="#666666">
+                    <input type="text" class="color-value" value="#666666">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+      <!-- Aperçu en temps réel -->
+      <div class="editor-preview">
+        <div class="editor-preview-title">📱 Aperçu en temps réel</div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="phone-header">
+              <div class="phone-logo">LOGO</div>
+              <div class="phone-title">PARTICIPEZ ET TENTEZ DE GAGNER</div>
+            </div>
+            <div class="phone-wheel">
+              <div class="wheel-visual">
+                <div class="wheel-pointer"></div>
+                <div class="wheel-center">JOUER</div>
+              </div>
+            </div>
+            <div class="phone-footer">
+              <span>Règlement</span>
+              <span>Cadeo</span>
+            </div>
+          </div>
+        </div>
+        <div class="editor-footer">
+          <button class="btn btn-ghost" onclick="closeEditorModal()">Annuler</button>
+          <button class="btn btn-primary" onclick="closeEditorModal()">💾 Enregistrer</button>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
